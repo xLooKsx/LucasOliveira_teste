@@ -5,7 +5,8 @@
  */
 package br.desafio.web.DAO;
 
-import br.desafio.web.TO.CorridaTO;
+import br.desafio.web.TO.MotoristaTO;
+import br.desafio.web.TO.PassageiroTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,39 +18,41 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author lucas.oliveira
+ * @author Lucas
  */
-public class CorridaDAO {
+public class PassageiroDAO {
 
     private Connection connection;
     private PreparedStatement stm;
     private ResultSet rs;
 
-    Logger logger = Logger.getLogger(CorridaDAO.class.getName());
+    Logger logger = Logger.getLogger(PassageiroDAO.class.getName());
 
-    public CorridaDAO() {
+    public PassageiroDAO() {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public void inserirCorrida(String nomeMotorista, String nomePassageiro, double valor) {
+    public void inserirPassageiro(PassageiroTO passageiroTO) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO ")
-                .append("corrida ")
+                .append("passageiro ")
                 .append("( ")
-                .append("idCorrida, ")
-                .append("nomeMotorista, ")
-                .append("nomePassageiro, ")
-                .append("valor ")
+                .append("idPassageiro, ")
+                .append("nome, ")
+                .append("dtNascimento, ")
+                .append("cpf, ")
+                .append("sexo ")
                 .append(") ")
-                .append("VALUES(nextval('id_corrida'), ?, ?, ?); ");
+                .append("VALUES(nextval('idPassageiro'), ?, ?, ?, ?); ");
 
         try {
             this.stm = this.connection.prepareStatement(sql.toString());
 
-            this.stm.setString(1, nomeMotorista);
-            this.stm.setString(2, nomePassageiro);
-            this.stm.setDouble(3, valor);
+            this.stm.setString(1, passageiroTO.getNome());
+            this.stm.setDate(2, new java.sql.Date(passageiroTO.getDtNascimento().getTime()));
+            this.stm.setString(3, passageiroTO.getCpf());
+            this.stm.setString(4, passageiroTO.getSexo());
             stm.execute();
 
         } catch (SQLException e) {
@@ -65,11 +68,11 @@ public class CorridaDAO {
         }
     }
 
-    public List<CorridaTO> consultarCorrida() {
+    public List<PassageiroTO> consultarPassageiros() {
 
-        List<CorridaTO> corridas = new ArrayList<CorridaTO>();
+        List<PassageiroTO> passageiros = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM corrida ");
+        sql.append("SELECT * FROM passageiro ");
 
         try {
             this.stm = this.connection.prepareStatement(sql.toString());
@@ -77,12 +80,13 @@ public class CorridaDAO {
 
             this.rs = stm.executeQuery();
             while (rs.next()) {
-                CorridaTO corrida = new CorridaTO();
-                corrida.setNomeMotorista(rs.getString("nomeMotorista"));
-                corrida.setNomePassageiro(rs.getString("nomePassageiro"));
-                corrida.setValor(rs.getDouble("valor"));
-                corridas.add(corrida);
-            }            
+                PassageiroTO passageiro = new PassageiroTO();
+                passageiro.setNome(rs.getString("nome"));
+                passageiro.setDtNascimento(rs.getDate("dtNascimento"));
+                passageiro.setCpf(rs.getString("cpf"));                
+                passageiro.setSexo(rs.getString("sexo"));
+                passageiros.add(passageiro);
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE,
                     "Impossivel salvar os dados, porfavor verifique se tudo foi inserido corretamente ", e);
@@ -95,7 +99,6 @@ public class CorridaDAO {
                 e.printStackTrace();
             }
         }
-        return corridas;
+        return passageiros;
     }
-
 }
