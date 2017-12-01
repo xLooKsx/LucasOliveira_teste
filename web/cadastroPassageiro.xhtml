@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <div class="ui-fluid" style="width: 80%" >
+            <p:messages id="msgsPassageiro"  />
+            <p:outputLabel id="lblNomePassageiro" value="Nome:"  />
+            <p:inputText id="txtNomePassageiro" 
+                         value="#{controller.passageiroTO.nome}" 
+                         required="true" 
+                         requiredMessage="Nome do Passageiro deve ser preenchido"                         
+                         size="50" />                
+
+            <p:outputLabel id="lblDtNascimentoPassageiro" value="Data de Nascimento:"  />
+            <p:calendar id="cldDtNascimentoPassageiro" 
+                        value="#{controller.passageiroTO.dtNascimento}" 
+                        required="true" 
+                        requiredMessage="Data de nascimento do Passageiro deve ser preenchido"  
+                        showOn="button" 
+                        mask="99/99/9999" />
+
+            <p:outputLabel id="lblCpfPassageiro" value="CPF"  />
+            <p:inputMask id="txtCpfPassageiro"
+                         value="#{controller.passageiroTO.cpf}" 
+                         mask="999.999.999-99"
+                         required="true"
+                         requiredMessage="CPF do Passageiro deve ser preenchido"/>
+
+            <h:panelGrid id="pgSexoPassageiro" columns="2" cellpadding="5">
+                <p:outputLabel id="lblSexoPassageiro"  value="Sexo: " />
+                <p:selectOneMenu id="OptionSexoPassageiro" 
+                                 required="true" 
+                                 requiredMessage="Sexo do Passageiro deve ser preenchido" 
+                                 value="#{controller.passageiroTO.sexo}" 
+                                 style="width:125px">
+
+                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                    <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                    <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                </p:selectOneMenu>   
+            </h:panelGrid>
+
+            <p:commandButton id="btnCadastarPassageiro" value="teste" action="#{controller.mensagem}" update="msgsPassageiro"  />            
+        </div>
+    </h:body>
+</html>
+

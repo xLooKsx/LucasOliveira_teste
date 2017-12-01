@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">    
+    <h:body>
+        <div class="ui-fluid" style="width: 80%">            
+            <p:messages id="msgsMotorista"  />
+            <p:outputLabel id="lblMotorista" value="Nome:"  />
+            <p:inputText id="txtNomeMotorista" 
+                         value="#{controller.motoristaTO.nome}" 
+                         required="true" 
+                         requiredMessage="Nome do Motorista deve ser preenchido"  
+                         size="50" />                
+
+            <p:outputLabel id="lblDtNascimentoMotorista" value="Data de Nascimento:"  />
+            <p:calendar  id="cldDtNascimentoMotorista" 
+                         value="#{controller.motoristaTO.dtNascimento}" 
+                         showOn="button" 
+                         required="true"
+                         requiredMessage="Data de nascimento do Motorista deve ser preenchido"  
+                         mask="99/99/9999" />
+
+            <p:outputLabel id="lblCpfMotorista" value="CPF"  />
+            <p:inputMask id="txtCpfMotrista"
+                         value="#{controller.motoristaTO.cpf}" 
+                         rendered="true"
+                         requiredMessage="CPF do Motorista deve ser preenchido"  
+                         mask="999.999.999-99">		
+            </p:inputMask>   
+
+            <p:outputLabel id="lblModeloCarroMotorista" value="Modelo do Carro"  />
+            <p:inputText id="txtModeloCarroMotorista" 
+                         value="#{controller.motoristaTO.modeloCarro}" 
+                         required="true" 
+                         requiredMessage="Modelo do carro do Motorista deve ser preenchido"  
+                         size="50" />   
+
+            <h:panelGrid id="pgMotorista" columns="4" style="margin-bottom:10px;" cellpadding="5">
+                
+                <p:outputLabel id="lblStatusMotorista" value="Status do Usuario"  /><br/>
+                <p:selectOneButton id="OptiontatusMotorista" required="true" requiredMessage="Status do Motorista deve ser escolhido"   value="#{controller.motoristaTO.status}">
+                <f:selectItem itemLabel="Ativo" itemValue="1" />
+                <f:selectItem itemLabel="Desativado" itemValue="0" />
+            </p:selectOneButton>   
+
+
+                <h:panelGrid id="pgSexoMotorista" columns="2" style="margin-left: 20%;" cellpadding="5">
+                    <p:outputLabel  id="lblSexoMotorista" value="Sexo: " />
+                    <p:selectOneMenu id="OptionSexoMotorista" rendered="true" requiredMessage="Sexo do Motorista deve ser escolhido"   value="#{controller.motoristaTO.sexo}" style="width:125px">
+                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                    <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                    <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                </p:selectOneMenu>   
+            </h:panelGrid>
+            </h:panelGrid>
+
+            <p:commandButton id="btnCadastarMotorista" 
+                             value="teste" 
+                             action="#{controller.mensagem}" 
+                             />            
+        </div>
+    </h:body>
+</html>
+

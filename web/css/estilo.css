@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+@import url(//fonts.googleapis.com/css?family=Montserrat);
+
+.ui-inputfield{
+    color: black !important;    
+    margin-bottom: 1%;
+    box-shadow: none !important;    
+}
+
+.ui-selectonebutton {
+    width: 122% !important;
+}
+
+.ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button{
+    position: relative;
+    right: 0px;
+    width: 2.4em;
+}
+
+.ui-fluid .ui-calendar input{
+    width: 96%
+}

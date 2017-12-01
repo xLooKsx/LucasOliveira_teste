@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>LucasOliveira_teste</title>
+        <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
+    </h:head>
+    <h:body>
+        <div id="DivPrincipal" class="ui-fluid">
+
+
+
+
+            <p:tabView id="Tabview">
+                <p:tab title="Cadastro de Motorista" id="CadMotorista">
+                    <div style="width: 100%; ">
+                        <h:form id="formMotorista">
+                            <ui:include src="cadastroMotorista.xhtml" />
+                        </h:form>
+                    </div>
+                </p:tab>
+
+                <p:tab title="Cadastro de Passageiros" id="CadPassageiro">
+                    <div style="width: 100%; " id="formPassageiro">
+                        <h:form id="formPassageiro">                                
+                            <ui:include src="cadastroPassageiro.xhtml" />
+                        </h:form>
+                    </div>
+                </p:tab>
+
+                <p:tab title="Corridas">
+                    <div style="width: 100%; " id="formPassageiro">
+                        <h:form id="formCorridas">                                
+                            
+                        </h:form>
+                    </div>
+                </p:tab>
+            </p:tabView>
+
+        </div>
+    </h:body>
+</html>
+
