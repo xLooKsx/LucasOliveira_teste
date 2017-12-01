@@ -5,9 +5,13 @@
  */
 package br.desafio.web.controller;
 
+import br.desafio.web.DAO.CorridaDAO;
+import br.desafio.web.DAO.MotoristaDAO;
+import br.desafio.web.DAO.PassageiroDAO;
 import br.desafio.web.TO.CorridaTO;
 import br.desafio.web.TO.MotoristaTO;
 import br.desafio.web.TO.PassageiroTO;
+import br.desafio.web.utils.DesafioWebUtils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +33,61 @@ public class Main {
     PassageiroTO passageiroTO;
     CorridaTO corridaTO;
     
+    private double valor;
+    
     private List<CorridaTO> corridas = new ArrayList<>();
+    private List<MotoristaTO> motoristas = new ArrayList<>();
+    private List<PassageiroTO> passageiros = new ArrayList<>();
+    
+    FacesContext fc = FacesContext.getCurrentInstance();
 
     public Main() {
         motoristaTO = new MotoristaTO();
         passageiroTO = new PassageiroTO();
         corridaTO = new CorridaTO();
+//        popularListaCorridas();
+//        popularListaMotoristas();
+//        popularListaPassageiros();
     }   
 
     public void cadastrarMotorista(){
-        //Dao Aqui
+        if (DesafioWebUtils.validarCPF(motoristaTO.getCpf())) {
+            new MotoristaDAO().inserirMotorista(motoristaTO);
+            fc.addMessage(null, new FacesMessage("Motorista cadastrado com sucesso"));
+        }else{
+            fc.addMessage(null, new FacesMessage("Motorista nao pode ser cadastrado com sucesso"));
+        }
+        
+    }
+    
+    public void cadastrarCorrida(){
+    if (motoristaTO.getStatus().contains("1")) {
+            new CorridaDAO().inserirCorrida(motoristaTO.getNome(), passageiroTO.getNome(), this.valor);
+            fc.addMessage(null, new FacesMessage("Motorista cadastrado com sucesso"));
+        }else{
+            fc.addMessage(null, new FacesMessage("Motorista nao pode ser cadastrado com sucesso"));
+        }
     }
     
     public void cadastrarPassageiro(){
-        //Dao Aqui
+        if (DesafioWebUtils.validarCPF(passageiroTO.getCpf())) {
+            new PassageiroDAO().inserirPassageiro(passageiroTO);
+            fc.addMessage(null, new FacesMessage("passageiro cadastrado com sucesso"));
+        }else{
+            fc.addMessage(null, new FacesMessage("passageiro nao pode ser cadastrado com sucesso"));
+        }
     }
     
-    public void popularListaCorridas(){
-        //DAO aqui
+    private void popularListaCorridas(){
+        corridas = new CorridaDAO().consultarCorrida();
+    }
+    
+    private void popularListaPassageiros(){
+        passageiros = new PassageiroDAO().consultarPassageiros();
+    }
+    
+    private void popularListaMotoristas(){
+        corridas = new CorridaDAO().consultarCorrida();
     }
 
     public MotoristaTO getMotoristaTO() {
@@ -75,5 +116,29 @@ public class Main {
 
     public List<CorridaTO> getCorridas() {
         return corridas;
-    }           
+    }    
+
+    public List<MotoristaTO> getMotoristas() {
+        return motoristas;
+    }
+
+    public void setMotoristas(List<MotoristaTO> motoristas) {
+        this.motoristas = motoristas;
+    }
+
+    public List<PassageiroTO> getPassageiros() {
+        return passageiros;
+    }
+
+    public void setPassageiros(List<PassageiroTO> passageiros) {
+        this.passageiros = passageiros;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }    
 }

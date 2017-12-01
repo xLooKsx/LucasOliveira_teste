@@ -11,10 +11,6 @@
     </h:head>
     <h:body>
         <div id="DivPrincipal" class="ui-fluid">
-
-
-
-
             <p:tabView id="Tabview">
                 <p:tab title="Cadastro de Motorista" id="CadMotorista">
                     <div style="width: 100%; ">
@@ -35,8 +31,43 @@
                 <p:tab title="Corridas">
                     <div style="width: 100%; " id="formPassageiro">
                         <h:form id="formCorridas">                                
-                            
+                            <ui:include src="corridas.xhtml" />
                         </h:form>
+                        <h:form id="formCorridasdg">
+                        <p:dialog widgetVar="cadCorrida" modal="false" showEffect="fade"
+                                  hideEffect="fade" resizable="false" width="450" height="400">	
+
+                            <p:outputPanel id="detalheLivro" style="text-align:center;" >
+
+                                <p:panelGrid columns="2" columnClasses="label,value">
+                                    <f:facet name="header">Cadastro de nova corrida</f:facet>
+
+                                    <h:outputText value="Motorista:" />
+                                    <p:selectOneListbox id="basicMotorista" value="#{controller.motoristaTO}" required="true" requiredMessage="escolha o motorista">
+                                        <f:selectItems value="#{controller.motoristas}" var="motorista" itemValue="#{motorista}" />
+                                    </p:selectOneListbox>
+
+                                    <h:outputText value="Passageiro:" />
+                                    <p:selectOneListbox id="basicPassageiro" value="#{controller.passageiroTO}" required="true" requiredMessage="escolha o passageiro">
+                                        <f:selectItems value="#{controller.passageiros}" var="passageiros" itemValue="#{passageiros}" />
+                                    </p:selectOneListbox>				
+
+                                    <h:outputText value="valor" />
+                                    <p:inputNumber value="#{controller.valor}"
+                                                   required="true"
+                                                   requiredMessage="Insira o valor"/>
+                                </p:panelGrid>
+                                <p:commandButton
+                                    style="width: 28%; right: 20%; horizontal-align: center;"
+                                    styleClass="ui-button-text-only" value="Cancelar" update="Tabview:formCorridasdg"				
+                                    onclick="PF('cadCorrida').hide()"/>
+
+                                <p:commandButton 
+                                    style="width: 31%; right: 20%; horizontal-align: center;" update="Tabview:formCorridas"
+                                    value="Aceitar" action="#{controller.cadastrarCorrida}" onclick="PF('cadCorrida').hide()" />							
+                            </p:outputPanel>
+                        </p:dialog>
+                            </h:form>
                     </div>
                 </p:tab>
             </p:tabView>

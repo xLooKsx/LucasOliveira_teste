@@ -6,23 +6,27 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">    
     <h:body>
-        <div class="ui-fluid" style="width: 80%">            
+        <div class="ui-fluid" style="width: 98%">            
             <p:messages id="msgsMotorista"  />
-            <p:dataTable id="tabelCorrida" var="corridaDaVez" value="#{controller.corridas}">
-                
+            <p:dataTable id="tabelCorrida" 
+                         emptyMessage="Não existe registro de nenhuma corrida no momento" 
+                         var="corridaDaVez" 
+                         value="#{controller.corridas}">
+
                 <p:column headerText="Nome Motorista">
                     <h:outputText value="#{corridaDaVez.nomeMotorista}" />
                 </p:column>
-                
+
                 <p:column headerText="Nome Passageiro">
                     <h:outputText value="#{corridaDaVez.nomePassageiro}" />
                 </p:column>
-                
+
                 <p:column headerText="Valor">
                     <h:outputText value="#{corridaDaVez.valor}" />
                 </p:column>
-                
+
             </p:dataTable>
+            <p:commandButton value="Cadastrar Nova corrida" oncomplete="PF('cadCorrida').show()"/>
         </div>
     </h:body>
 </html>
